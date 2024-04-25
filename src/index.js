@@ -2,11 +2,15 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const path=require('path');
+const databaseConnection = require('./databaseConnection.js')
 const { log } = require('console');
 
 const app=express();
 
 require('dotenv').config();
+
+databaseConnection();
+
 
 app.set('port', process.env.PORT || 9001);
 
