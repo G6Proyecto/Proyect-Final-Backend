@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const path=require('path');
 const databaseConnection = require('./databaseConnection.js')
 const { log } = require('console');
+const ProductRoutes = require('./Routes/ProductRoutes.js');
 
 const app=express();
 
@@ -25,3 +26,5 @@ app.use(morgan('dev'))
 app.use(cors());
 
 app.use(express.static(path.join(__dirname,'../public')))
+
+ProductRoutes("products", app)
