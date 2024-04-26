@@ -1,6 +1,6 @@
-const express = require('express')
-const cors = require('cors')
-const morgan = require('morgan')
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 const path=require('path');
 const databaseConnection = require('./databaseConnection.js')
 const { log } = require('console');
@@ -27,4 +27,4 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname,'../public')))
 
-ProductRoutes("products", app)
+ProductRoutes("/products", app);

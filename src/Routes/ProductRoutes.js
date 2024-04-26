@@ -1,7 +1,8 @@
 const ProductRoutes = (base, app) => {
+
     const prodController = new ProductController();
   
-    app.post(${base}, async (req, res) => {
+    app.post(`${base}` , async (req, res) => {
       try {
         const {
           title,
@@ -29,54 +30,43 @@ const ProductRoutes = (base, app) => {
     });
   
   
-    app.get(${base}/:id, async(req, res)=>{
+    app.get(`${base}/:id`, async(req, res)=>{
       try {
           const {id}=req.params;
           const response=await prodController.GetById(id);
           return res.status(200).json(response);
       } catch (error) {
-          console.error(`Error al obtener el producto con id`, error);
-          return res.status(500).json({message:"Ocurrio un error al intentar obtener el producto"}); 
+          console.error(`Error al intentar obtener el producto con id`, error);
+          return res.status(500).json({message:"Ocurrió un error al intentar obtener el producto"}); 
       }
   });
   
-    app.get(${base}/news/product, async (req, res) => {
-      try {
-        const response = await prodController.GetNewsProducts();
-        return res.status(200).json(response);
-      } catch (error) {
-        console.error("Error al obtener las productos destacados", error);
-        return res.status(500).json({
-          message: "Ocurrio un error al intentar obtener los productos destacados",
-        });
-      }
-    });
   
-    app.get(${base}, async (req, res) => {
+    app.get(`${base}`, async (req, res) => {
       try {
         const response = await prodController.GetAllProducts();
         return res.status(200).json(response);
       } catch (error) {
-        console.error("Error al obtener todos los productos", error);
+        console.error("Error al intentar obtener los productos según la categoría", error);
         return res.status(500).json({
-          message: "Ocurrió un error al intentar obtener todos los productos",
+          message: "Error al intentar obtener los productos según la categoría",
         });
       }
     });
   
-    app.get(${base}/categories/product, async (req, res) => {
+    app.get(`${base}/categories/product`, async (req, res) => {
       try {
         const response = await prodController.GetAllCategories();
         return res.status(200).json(response);
       } catch (error) {
-        console.error("Error al obtener las categorias", error);
+        console.error("Error al obtener las categorías", error);
         return res.status(500).json({
-          message: "Ocurrio un error al intentar obtener las categorias",
+          message: "Ocurrió un error al intentar obtener las categorías",
         });
       }
     });
   
-    app.put(${base}/update/id, async(req, res)=>{
+    app.put(`${base}/update/id`, async(req, res)=>{
       try {
         const {_id}=req.params;
         const newData=req.body;
