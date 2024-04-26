@@ -4,7 +4,6 @@ const ProductRoutes = (base, app) => {
     app.post(${base}, async (req, res) => {
       try {
         const {
-          name,
           title,
           category,
           price,
@@ -13,7 +12,6 @@ const ProductRoutes = (base, app) => {
           url
         } = req.body;
         await prodController.Create(
-            name,
             title,
             category,
             price,
