@@ -2,12 +2,14 @@
 const ProductModel = require("../Models/ProductModel");
 
 const {
-  validateTitle,
-  validateCategory,
-  validatePrice,
-  validateDescription,
-  validateDateStock,
-  validateUrl
+    validateTitle,
+    validateCategory,
+    validatePrice,
+    validateDescription,
+    validateDateStock,
+    validateUrl
+
+
 } = require("../Util/helpers");
 
 class ProductController {
@@ -84,27 +86,41 @@ class ProductController {
     }
   }
 
-  async UpdateProduct(_id, newData) {
+  async UpdateProduct(req, res) {
+    const {id} = req.params;
+    const newData = req.body;
+
     try {
-      const product = await ProductModel.findById(_id);
+      const product = await ProductModel.findByIdAndUpdate(id, newData, { new: true });
 
       if (!product) {
-        throw new Error("Producto no encontrado");
+        return res.status(404).json({ message: "Producto no encontrado" });
       }
 
-      product.title = newData.name;
-      product.category = newData.category;
-      product.price = newData.price;
-      product.description = newData.description;
-      product.dateStock = newData.dateStock;
-      product.url = newData.url;
-
-      await product.save();
+      return res.status(200).json({ message: "Producto actualizado exitosamente", product });
     } catch (error) {
-      throw error;
+      console.error("Error al intentar actualizar el producto", error);
+      return res.status(500).json({ message: "Error al intentar actualizar el producto" });
     }
-  };
+  }
 
+  async DeleteProduct(req, res) {
+    const { id } = req.params;
+    try {
+      const product = await ProductModel.findByIdAndDelete(id);
+
+      if (!product) {
+        return res.status(404).json({ message: "Producto no encontrado" });
+      }
+
+      return res.status(200).json({ message: "Producto eliminado exitosamente", product });
+    } catch (error) {
+      console.error("Error al intentar eliminar el producto", error);
+      return res.status(500).json({ message: "Error al intentar eliminar el producto" });
+    }
+  }
 }
+
+
 
 module.exports = ProductController;

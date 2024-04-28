@@ -6,7 +6,7 @@ const ProductSchema = new Schema({
     type: String,
     require: [true, "El nombre del producto es requerido"],
     minLength: 4,
-    maxLength: 50,
+    maxLength: 80,
   },
   category: {
     type: String,
