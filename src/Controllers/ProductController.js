@@ -8,6 +8,8 @@ const {
     validateDescription,
     validateDateStock,
     validateUrl
+
+
 } = require("../Util/helpers");
 
 class ProductController {
