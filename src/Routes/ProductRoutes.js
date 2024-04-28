@@ -1,3 +1,5 @@
+const ProductController = require("../Controllers/ProductController");
+
 const ProductRoutes = (base, app) => {
 
     const prodController = new ProductController();
@@ -66,18 +68,25 @@ const ProductRoutes = (base, app) => {
       }
     });
   
-    app.put(`${base}/update/id`, async(req, res)=>{
+    app.put(`${base}/update/:id`, async (req, res) => {
       try {
-        const {_id}=req.params;
-        const newData=req.body;
-        await prodController.UpdateProduct(_id, newData);
-  
-        return res.status(201).json({message: "Se actualizó el producto exitosamente"})
+        await prodController.UpdateProduct(req, res);
+        return res.status(201).json({ message: "Se actualizó el producto exitosamente" });
       } catch (error) {
-        console.error("Error al intentar actualizar el producto", error)
+        console.error("Error al intentar actualizar el producto", error);
+        return res.status(500).json({ message: "Error al intentar actualizar el producto" });
       }
     });
-  
+    
+    app.delete(`${base}/delete/:id`, async(req, res)=>{
+      try {
+          await prodController.DeleteProduct(req, res);
+          return res.status(200).json({message:"Exito"})
+          
+      } catch (error) {
+          console.log("Error al intentar eliminar producto", error);
+      }
+  })
   };
   
   module.exports = ProductRoutes;

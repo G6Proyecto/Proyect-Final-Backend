@@ -2,12 +2,12 @@
 const ProductModel = require("../Models/ProductModel");
 
 const {
-    title,
-    category,
-    price,
-    description,
-    dateStock,
-    url
+    validateTitle,
+    validateCategory,
+    validatePrice,
+    validateDescription,
+    validateDateStock,
+    validateUrl
 } = require("../Util/helpers");
 
 class ProductController {
@@ -19,7 +19,7 @@ class ProductController {
     dateStock,
     url
   ) {
-    if (!validateName(title)) {
+    if (!validateTitle(title)) {
       throw new Error("El nombre del producto es inválido");
     }
     if (!validateCategory(category)) {
@@ -31,10 +31,10 @@ class ProductController {
     if (!validateDescription(description)) {
       throw new Error("La descripción del producto inválido");
     }
-    if (!validateStockUpdateDate(dateStock)) {
+    if (!validateDateStock(dateStock)) {
         throw new Error("La fecha de actualización del producto inválida");
     }
-    if (!validateImageUrl(url)) {
+    if (!validateUrl(url)) {
       throw new Error("La url de la imagen del producto inválida");
     }
     try {
@@ -84,27 +84,41 @@ class ProductController {
     }
   }
 
-  async UpdateProduct(_id, newData) {
+  async UpdateProduct(req, res) {
+    const {id} = req.params;
+    const newData = req.body;
+
     try {
-      const product = await ProductModel.findById(_id);
+      const product = await ProductModel.findByIdAndUpdate(id, newData, { new: true });
 
       if (!product) {
-        throw new Error("Producto no encontrado");
+        return res.status(404).json({ message: "Producto no encontrado" });
       }
 
-      product.title = newData.name;
-      product.category = newData.category;
-      product.price = newData.price;
-      product.description = newData.description;
-      product.dateStock = newData.dateStock;
-      product.url = newData.url;
-
-      await product.save();
+      return res.status(200).json({ message: "Producto actualizado exitosamente", product });
     } catch (error) {
-      throw error;
+      console.error("Error al intentar actualizar el producto", error);
+      return res.status(500).json({ message: "Error al intentar actualizar el producto" });
     }
-  };
+  }
 
+  async DeleteProduct(req, res) {
+    const { id } = req.params;
+    try {
+      const product = await ProductModel.findByIdAndDelete(id);
+
+      if (!product) {
+        return res.status(404).json({ message: "Producto no encontrado" });
+      }
+
+      return res.status(200).json({ message: "Producto eliminado exitosamente", product });
+    } catch (error) {
+      console.error("Error al intentar eliminar el producto", error);
+      return res.status(500).json({ message: "Error al intentar eliminar el producto" });
+    }
+  }
 }
+
+
 
 module.exports = ProductController;

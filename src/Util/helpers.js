@@ -27,7 +27,7 @@ function validateUrl(url) {
 
 function validateDateStock(dateStock) {
   const regexFecha = /^\d{4}-\d{2}-\d{2}$/;
-  return regexFecha.test(dateStock) && dateStock > "2024-04-16";
+  return regexFecha.test(dateStock) && dateStock < "2024-04-16";
 }
 module.exports = {
   validateTitle,
