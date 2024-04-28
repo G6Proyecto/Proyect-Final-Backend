@@ -53,16 +53,47 @@ class UserController{
         }
     }
 
-    async DeleteUserById(id){
 
+    async GetAllUsers() {
         try {
-            const deletedUser=await UserModel.findByIdAndDelete(id);
-            return deletedUser;
+          const allUsers = await UserModel.find();
+          return allUsers;
         } catch (error) {
-            throw error;
+          throw error;
         }
+      }
 
-    }
+    async DeleteUserById(req,res){
+        const { id } = req.params;
+        try {
+            const deleteUser=await UserModel.findByIdAndDelete(id);
+            
+      if (!deleteUser) {
+        return res.status(404).json({ message: "usuario no encontrado" });
+      }
+
+      return res.status(200).json({ message: "usuario eliminado exitosamente", deleteUser });
+        } catch (error) {
+         console.error("Error al intentar eliminar el usuario", error);
+        return res.status(500).json({ message: "Error al intentar eliminar el usuario" });
+      }
+     }
+
+    async Updateuser(req,res){
+        const {id} = req.params;
+        const newData = req.body;
+        try {
+            const Updateuser = await UserModel.findByIdAndUpdate(id, newData, { new: true });
+            if (!Updateuser) {
+                return res.status(404).json({ message: "Usuario no encontrado" });
+              }
+        }
+        catch (error){
+            throw (error)
+        }
+    };
+
+
 
     async Login(req, res){
         try {
