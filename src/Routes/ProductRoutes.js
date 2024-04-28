@@ -1,3 +1,5 @@
+const ProductController=require('../Controllers/ProductController');
+
 const ProductRoutes = (base, app) => {
 
     const prodController = new ProductController();
