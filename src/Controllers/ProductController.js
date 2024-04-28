@@ -39,7 +39,7 @@ class ProductController {
         category: category,
         price: price,
         description: description,
-        dateStock: new Data(),
+        dateStock: dateStock,
         url: url,
       });
 

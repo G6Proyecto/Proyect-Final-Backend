@@ -11,7 +11,7 @@ const UserSchema=new Schema({
     password:{
         type: String,
         required: [true, 'La contraseña es requerida'],   
-        match: /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+       
     },
     role:{
         type: String,
