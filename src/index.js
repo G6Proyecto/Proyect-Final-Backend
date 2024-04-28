@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const path=require('path');
-const databaseConnection = require('./databaseConnection.js')
+const databaseConnection = require('./databaseConnection.js');
 const { log } = require('console');
 const ProductRoutes = require('./Routes/ProductRoutes.js');
+const UserRoutes= require('./Routes/UserRoutes.js')
 
 const app=express();
 
@@ -27,4 +28,5 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname,'../public')))
 
+UserRoutes("/users", app)
 ProductRoutes("/products", app);

@@ -2,12 +2,12 @@
 const ProductModel = require("../Models/ProductModel");
 
 const {
-    title,
-    category,
-    price,
-    description,
-    dateStock,
-    url
+  validateTitle,
+  validateCategory,
+  validatePrice,
+  validateDescription,
+  validateDateStock,
+  validateUrl
 } = require("../Util/helpers");
 
 class ProductController {
@@ -19,7 +19,7 @@ class ProductController {
     dateStock,
     url
   ) {
-    if (!validateName(title)) {
+    if (!validateTitle(title)) {
       throw new Error("El nombre del producto es inválido");
     }
     if (!validateCategory(category)) {
@@ -31,10 +31,10 @@ class ProductController {
     if (!validateDescription(description)) {
       throw new Error("La descripción del producto inválido");
     }
-    if (!validateStockUpdateDate(dateStock)) {
+    if (!validateDateStock(dateStock)) {
         throw new Error("La fecha de actualización del producto inválida");
     }
-    if (!validateImageUrl(url)) {
+    if (!validateUrl(url)) {
       throw new Error("La url de la imagen del producto inválida");
     }
     try {
