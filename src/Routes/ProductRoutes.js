@@ -1,6 +1,4 @@
 const ProductController = require("../Controllers/ProductController");
-
-
 const ProductRoutes = (base, app) => {
 
     const prodController = new ProductController();
@@ -32,7 +30,19 @@ const ProductRoutes = (base, app) => {
       }
     });
   
-  
+    app.get(`${base}/featureProducts`, async (req, res) => {
+      try {
+          // Obtén todos los productos
+          const allProducts = await prodController.GetAllProducts();
+          // Elige aleatoriamente hasta 10 productos
+          const randomProducts = allProducts.sort(() => 0.5 - Math.random()).slice(0, 10);
+          res.json(randomProducts);
+      } catch (error) {
+          console.error(error);
+          res.status(500).json({ message: 'Error al obtener los productos' });
+      }
+  });
+
     app.get(`${base}/:id`, async(req, res)=>{
       try {
           const {id}=req.params;
@@ -91,6 +101,7 @@ const ProductRoutes = (base, app) => {
           console.log("Error al intentar eliminar producto", error);
       }
   })
+
   };
   
   module.exports = ProductRoutes;
