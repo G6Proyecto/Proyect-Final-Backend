@@ -1,5 +1,5 @@
 
-const ProductModel = require("../Models/ProductModel");
+const ProductModel = require("../Models/ProductModel" );
 
 const {
     validateTitle,
