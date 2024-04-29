@@ -5,19 +5,7 @@ const UserRoutes=(base, app)=>{
 
     const controller=new UserController();
 
-    
-    app.get(`${base}/listuser`, async (req, res) => {
-        try {
-          const response = await controller.GetAllUsers();
-          return res.status(200).json(response);
-        } catch (error) {
-          console.error("Error al intentar obtener los usuario ", error);
-          return res.status(500).json({
-            message: "Error al intentar obtener los usuarios",
-          });
-        }
-      });
-
+  
 
 
     app.post(`${base}/create-admin`, Auth.isAuth, Auth.isAdmin, async(req, res, next)=>{
@@ -48,6 +36,20 @@ const UserRoutes=(base, app)=>{
     });
 
 
+      
+    app.get(`${base}/listuser`, async (req, res) => {
+        try {
+          const response = await controller.GetAllUsers();
+          return res.status(200).json(response);
+        } catch (error) {
+          console.error("Error al intentar obtener los usuario ", error);
+          return res.status(500).json({
+            message: "Error al intentar obtener los usuarios",
+          });
+        }
+      });
+
+
 
     app.put(`${base}/updateuser/:id`, async (req,res)=> {
         try {
@@ -64,12 +66,9 @@ const UserRoutes=(base, app)=>{
 
     app.delete(`${base}/deleteuser/:id`, async(req, res)=>{
         try {
-            const response=await controller.DeleteUserById(req,res);
-            console.log('USUARIO ELIMINADO-->', JSON.stringify(response));
-            return res.status(200).json({message:"Exito al eliminar el usuario"});
+            await controller.DeleteUserById(req,res);
         } catch (error) {
-            console.error('Error al eliminar un usuario', error);
-            return res.status(500).json({message: "Ocurrió un error al intentar eliminar un usuario"})
+            console.error("Ocurrió un error al intentar eliminar un usuario", error);
         }
     });
 
