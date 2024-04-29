@@ -10,7 +10,8 @@ const UserSchema=new Schema({
     },
     password:{
         type: String,
-        required: [true, 'La contraseña es requerida'],  
+        required: [true, 'La contraseña es requerida'],   
+       
     },
     role:{
         type: String,

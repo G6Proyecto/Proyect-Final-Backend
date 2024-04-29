@@ -6,10 +6,7 @@ const {
     validateCategory,
     validatePrice,
     validateDescription,
-    validateDateStock,
     validateUrl
-
-
 } = require("../Util/helpers");
 
 class ProductController {
@@ -32,9 +29,6 @@ class ProductController {
       }
     if (!validateDescription(description)) {
       throw new Error("La descripción del producto inválido");
-    }
-    if (!validateDateStock(dateStock)) {
-        throw new Error("La fecha de actualización del producto inválida");
     }
     if (!validateUrl(url)) {
       throw new Error("La url de la imagen del producto inválida");
@@ -86,21 +80,25 @@ class ProductController {
     }
   }
 
-  async UpdateProduct(req, res) {
-    const {id} = req.params;
-    const newData = req.body;
-
+  async UpdateProduct(id, newData) {
     try {
-      const product = await ProductModel.findByIdAndUpdate(id, newData, { new: true });
+      const product = await ProductModel.findById(id);
 
       if (!product) {
-        return res.status(404).json({ message: "Producto no encontrado" });
+        throw new Error ("Producto no encontrado en la base de dato")
       }
 
-      return res.status(200).json({ message: "Producto actualizado exitosamente", product });
+      product.title = newData.title,
+      product.category = newData.category,
+      product.price = newData.price,
+      product.description = newData.description,
+      product.dateStock = newData.dateStock,
+      product.url = product.url
+
+      await product.save()
+
     } catch (error) {
-      console.error("Error al intentar actualizar el producto", error);
-      return res.status(500).json({ message: "Error al intentar actualizar el producto" });
+      throw error;
     }
   }
 
