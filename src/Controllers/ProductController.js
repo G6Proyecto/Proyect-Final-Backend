@@ -89,18 +89,20 @@ class ProductController {
   async UpdateProduct(req, res) {
     const {id} = req.params;
     const newData = req.body;
-
+  
     try {
       const product = await ProductModel.findByIdAndUpdate(id, newData, { new: true });
-
+  
       if (!product) {
-        return res.status(404).json({ message: "Producto no encontrado" });
+        res.status(404).json({ message: "Producto no encontrado" });
+      } else {
+        res.status(200).json({ message: "Producto actualizado exitosamente", product });
       }
-
-      return res.status(200).json({ message: "Producto actualizado exitosamente", product });
     } catch (error) {
-      console.error("Error al intentar actualizar el producto", error);
-      return res.status(500).json({ message: "Error al intentar actualizar el producto" });
+      console.error(error);
+      if (!res.headersSent) {
+        res.status(500).json({ message: "Error al intentar actualizar el producto" });
+      }
     }
   }
 
