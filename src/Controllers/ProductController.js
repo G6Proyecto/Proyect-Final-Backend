@@ -63,7 +63,7 @@ class ProductController {
     try {
       let CategoriesResp = [];
 
-      CategoriesResp = await CategoriesModel.find();
+      CategoriesResp = await ProductModel.find();
 
       return CategoriesResp;
     } catch (error) {
@@ -93,7 +93,7 @@ class ProductController {
       product.price = newData.price,
       product.description = newData.description,
       product.dateStock = newData.dateStock,
-      product.url = product.url
+      product.url = newData.url
 
       await product.save()
 
