@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const dataBaseConnection = ()=>{
 
-    const connectionDB = process.env.DBB;
+    const connectionDB = process.env.DDBB;
     mongoose.connect(connectionDB)
 
     const connection = mongoose.connection;
