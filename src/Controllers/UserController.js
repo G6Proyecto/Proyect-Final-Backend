@@ -63,21 +63,16 @@ class UserController{
         }
       }
 
-    async DeleteUserById(req,res){
+ async DeleteUserById(req,res){
         const { id } = req.params;
         try {
             const deleteUser=await UserModel.findByIdAndDelete(id);
-            
-      if (!deleteUser) {
-        return res.status(404).json({ message: "usuario no encontrado" });
-      }
-
-      return res.status(200).json({ message: "usuario eliminado exitosamente", deleteUser });
+            return res.status(200).json({ message: "usuario eliminado exitosamente", deleteUser });
         } catch (error) {
-         console.error("Error al intentar eliminar el usuario", error);
-        return res.status(500).json({ message: "Error al intentar eliminar el usuario" });
-      }
-     }
+            console.error("Error al intentar eliminar el usuario", error);
+            return res.status(500).json({ message: "Error al intentar eliminar el usuario" });
+        }
+    }
 
     async Updateuser(req,res){
         const {id} = req.params;
