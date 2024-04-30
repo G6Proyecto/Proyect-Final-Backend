@@ -63,7 +63,7 @@ class UserController{
         }
       }
 
-      async DeleteUserById(req,res){
+ async DeleteUserById(req,res){
         const { id } = req.params;
         try {
             const deleteUser=await UserModel.findByIdAndDelete(id);
