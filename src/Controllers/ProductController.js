@@ -63,7 +63,7 @@ class ProductController {
     try {
       let CategoriesResp = [];
 
-      CategoriesResp = await CategoriesModel.find();
+      CategoriesResp = await ProductModel.find();
 
       return CategoriesResp;
     } catch (error) {
