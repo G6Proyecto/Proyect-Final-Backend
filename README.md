@@ -6,10 +6,10 @@ Soy la guía de usuario del backend de una página de comercio electrónico de u
 🌍 Variables de Entorno
 Para iniciar con el proyecto, se necesita instalar las variables de entorno. Para el backend necesitamos las siguientes ya que trabajamos con varios:
 
-PORT=8000
-DBB=mongodb+srv://grupo6Rl:pLaMeGfJJrjpptFd@proyectfinalbkc.rlxvcid.mongodb.net/
-BCRYPT_SALT=10
-SECRET_KEY="Grupo5ProyectoFinal"
+##PORT=8000
+##DBB=mongodb+srv://grupo6Rl:pLaMeGfJJrjpptFd@proyectfinalbkc.rlxvcid.mongodb.net/
+##BCRYPT_SALT=10
+##SECRET_KEY="Grupo5ProyectoFinal"
 
 📦 Instalación de Dependencias
 Este proyecto utiliza varias librerías y dependencias que son necesarias para su correcto funcionamiento. Para instalar todas estas dependencias, necesitarás utilizar el gestor de paquetes de Node.js, npm. Puedes instalar todas las dependencias con el siguiente comando:
